@@ -1,5 +1,6 @@
 const express =require("express")
 const userRoute = require("./routes/usersRoutes")
+const path = require("path")
 
 const app = express()
 
@@ -10,7 +11,11 @@ app.use(userRoute)
 
 //home route
 app.get("/", (req, res)=>{
-    res.status(200).send("<h1>WELCOME TO MY USERS DATABASE</h1>");
+    res.sendFile(path.join(__dirname + "/pages/index.html"))
+})
+
+app.get("/*",(req, res)=>{
+    res.status(400).sendFile(path.join(__dirname + "/pages/404.html"))
 })
 
 const PORT = 4000;
